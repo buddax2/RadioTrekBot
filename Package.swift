@@ -14,7 +14,7 @@ let package = Package(
     ],
     dependencies: [
         // Dependencies declare other packages that this package depends on.
-         .package(url: "https://github.com/zmeyc/telegram-bot-swift.git", from: "1.2.4"),
+         .package(url: "https://github.com/rapierorg/telegram-bot-swift.git", from: "1.2.4"),
     ],
     targets: [
         // Targets are the basic building blocks of a package. A target can define a module or a test suite.

@@ -3,7 +3,7 @@
     "pins": [
       {
         "package": "TelegramBotSDK",
-        "repositoryURL": "https://github.com/zmeyc/telegram-bot-swift.git",
+        "repositoryURL": "https://github.com/rapierorg/telegram-bot-swift.git",
         "state": {
           "branch": null,
           "revision": "ac95e94f02e63dce35623db7e612477957a3f875",
