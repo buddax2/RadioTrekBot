@@ -8,7 +8,10 @@
 import Foundation
 import Telegrammer
 
-let bot = try! Bot(token: "RADIOTREK_BOT_TOKEN")
+let token = ProcessInfo.processInfo.environment["RADIOTREK_BOT_TOKEN"]!
+let apiURL = ProcessInfo.processInfo.environment["API_URL"]!
+
+var bot = try! Bot(token: token)
 
 struct Song: Codable {
     var id: Int?
@@ -30,6 +33,40 @@ extension String {
     }
 }
 
+func inlineKeyboard(with buttons: [Song]) -> InlineKeyboardMarkup {
+    let inlineButtons: [[InlineKeyboardButton]] = buttons.map {
+        let inlineButton = InlineKeyboardButton(text: $0.rawTitle, url: "https://music.youtube.com/search?q=\($0.rawTitle.htmlEscaped())")
+
+        return [inlineButton]
+    }
+
+    return InlineKeyboardMarkup(inlineKeyboard: inlineButtons)
+}
+
+func getRandomPlaylist(update: Update) {
+    let task = URLSession.shared.dataTask(with: URL(string: "\(apiURL)/random")!) { (data, response, error) in
+        guard let data = data else { return }
+        guard error == nil else { return }
+        guard let message = update.message else { return }
+        
+        do {
+            let decoder = JSONDecoder()
+            let songs = try decoder.decode([Song].self, from: data)
+
+            let keyboard = inlineKeyboard(with: songs)
+
+            try! message.delete(from: bot)
+            try! bot.sendMessage(params: Bot.SendMessageParams(chatId: ChatId.chat(message.chat.id), text: "5 випадкових пісень", parseMode: .markdown, replyMarkup: ReplyMarkup.inlineKeyboardMarkup(keyboard)))
+        } catch {
+            print(error)
+        }
+    }
+    task.resume()
+}
+
+let messageHandler = MessageHandler { (update, context) in
+    getRandomPlaylist(update: update)
+}
 let commandHandler = CommandHandler(commands: ["/hello"], callback: { (update, _) in
     guard let message = update.message, let user = message.from else { return }
     try! message.reply(text: "Hello \(user.firstName)", from: bot)
@@ -37,5 +74,6 @@ let commandHandler = CommandHandler(commands: ["/hello"], callback: { (update, _
 
 let dispatcher = Dispatcher(bot: bot)
 dispatcher.add(handler: commandHandler)
+dispatcher.add(handler: messageHandler)
 
 _ = try! Updater(bot: bot, dispatcher: dispatcher).startLongpolling().wait()
