@@ -8,9 +8,6 @@
 import Foundation
 import Telegrammer
 
-let token = ProcessInfo.processInfo.environment["RADIOTREK_BOT_TOKEN"]!
-let apiURL = ProcessInfo.processInfo.environment["API_URL"]!
-
 var bot = try! Bot(token: token)
 
 struct Song: Codable {
