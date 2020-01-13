@@ -2,12 +2,93 @@
   "object": {
     "pins": [
       {
-        "package": "TelegramBotSDK",
-        "repositoryURL": "https://github.com/rapierorg/telegram-bot-swift.git",
+        "package": "Core",
+        "repositoryURL": "https://github.com/vapor/core.git",
         "state": {
           "branch": null,
-          "revision": "ac95e94f02e63dce35623db7e612477957a3f875",
-          "version": "1.2.4"
+          "revision": "10d33362a47fab03a067e78fb0791341d9c634fa",
+          "version": "3.9.3"
+        }
+      },
+      {
+        "package": "Crypto",
+        "repositoryURL": "https://github.com/vapor/crypto.git",
+        "state": {
+          "branch": null,
+          "revision": "df8eb7d8ae51787b3a0628aa3975e67666da936c",
+          "version": "3.3.3"
+        }
+      },
+      {
+        "package": "HTTP",
+        "repositoryURL": "https://github.com/vapor/http.git",
+        "state": {
+          "branch": null,
+          "revision": "3808ed0401379b6e9f4a053f03090ea9d658caa9",
+          "version": "3.2.1"
+        }
+      },
+      {
+        "package": "Multipart",
+        "repositoryURL": "https://github.com/vapor/multipart.git",
+        "state": {
+          "branch": null,
+          "revision": "f063180d0b84832accd33194e06ed3c41f8609ac",
+          "version": "3.1.1"
+        }
+      },
+      {
+        "package": "swift-log",
+        "repositoryURL": "https://github.com/givip/swift-log.git",
+        "state": {
+          "branch": null,
+          "revision": "fef7af3b3ae0985f8be9b11c33ad0d1939726545",
+          "version": "1.1.0-Logging-swift"
+        }
+      },
+      {
+        "package": "swift-nio",
+        "repositoryURL": "https://github.com/apple/swift-nio.git",
+        "state": {
+          "branch": null,
+          "revision": "ba7970fe396e8198b84c6c1b44b38a1d4e2eb6bd",
+          "version": "1.14.1"
+        }
+      },
+      {
+        "package": "swift-nio-ssl",
+        "repositoryURL": "https://github.com/apple/swift-nio-ssl.git",
+        "state": {
+          "branch": null,
+          "revision": "0f3999f3e3c359cc74480c292644c3419e44a12f",
+          "version": "1.4.0"
+        }
+      },
+      {
+        "package": "swift-nio-ssl-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-ssl-support.git",
+        "state": {
+          "branch": null,
+          "revision": "c02eec4e0e6d351cd092938cf44195a8e669f555",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "swift-nio-zlib-support",
+        "repositoryURL": "https://github.com/apple/swift-nio-zlib-support.git",
+        "state": {
+          "branch": null,
+          "revision": "37760e9a52030bb9011972c5213c3350fa9d41fd",
+          "version": "1.0.0"
+        }
+      },
+      {
+        "package": "Telegrammer",
+        "repositoryURL": "https://github.com/givip/Telegrammer.git",
+        "state": {
+          "branch": null,
+          "revision": "79c8199ae99ea2cb451e8a378f13efabb91a5a13",
+          "version": "0.5.4"
         }
       }
     ]

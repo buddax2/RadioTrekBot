@@ -1,10 +1,14 @@
+//
+//  File.swift
+//  
+//
+//  Created by Oleksandr Yakubchyk on 14.01.2020.
+//
+
 import Foundation
-import TelegramBotSDK
+import Telegrammer
 
-let token = readToken(from: "RADIOTREK_BOT_TOKEN")
-let apiURL = readToken(from: "PLAYLIST_API_URL")
-
-let bot = TelegramBot(token: token)
+let bot = try! Bot(token: "RADIOTREK_BOT_TOKEN")
 
 struct Song: Codable {
     var id: Int?
@@ -26,42 +30,12 @@ extension String {
     }
 }
 
-func inlineKeyboard(with buttons: [Song]) -> InlineKeyboardMarkup {
-    let inlineButtons: [[InlineKeyboardButton]] = buttons.map {
-        var inlineButton = InlineKeyboardButton()
-        inlineButton.text = $0.rawTitle
-        inlineButton.url = "https://music.youtube.com/search?q=\($0.rawTitle.htmlEscaped())"
+let commandHandler = CommandHandler(commands: ["/hello"], callback: { (update, _) in
+    guard let message = update.message, let user = message.from else { return }
+    try! message.reply(text: "Hello \(user.firstName)", from: bot)
+})
 
-        return [inlineButton]
-    }
+let dispatcher = Dispatcher(bot: bot)
+dispatcher.add(handler: commandHandler)
 
-    var keyboardMarkup = InlineKeyboardMarkup()
-    keyboardMarkup.inlineKeyboard = inlineButtons
-
-    return keyboardMarkup
-}
-
-while let update = bot.nextUpdateSync() {
-    if let message = update.message, let from = message.from {
-        
-        let task = URLSession.shared.dataTask(with: URL(string: "\(apiURL)/random")!) { (data, response, error) in
-            guard let data = data else { return }
-            guard error == nil else { return }
-            
-            do {
-                let decoder = JSONDecoder()
-                let songs = try decoder.decode([Song].self, from: data)
-
-                let keyboard = inlineKeyboard(with: songs)
-
-                bot.deleteMessageAsync(chatId: from.id, messageId: message.messageId)
-                bot.sendMessageAsync(chatId: from.id, replyMarkup: keyboard, text: "5 випадкових пісень") { message, error in
-//                    print(message)
-                }
-            } catch {
-                print(error)
-            }
-        }
-        task.resume()
-    }
-}
+_ = try! Updater(bot: bot, dispatcher: dispatcher).startLongpolling().wait()
