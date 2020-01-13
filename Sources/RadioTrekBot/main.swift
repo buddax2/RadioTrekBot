@@ -55,7 +55,7 @@ while let update = bot.nextUpdateSync() {
                 let keyboard = inlineKeyboard(with: songs)
 
                 bot.deleteMessageAsync(chatId: from.id, messageId: message.messageId)
-                bot.sendMessageAsync(chatId: from.id, parseMode: "markdown", replyMarkup: keyboard, text: "5 випадкових пісень") { message, error in
+                bot.sendMessageAsync(chatId: from.id, replyMarkup: keyboard, text: "5 випадкових пісень") { message, error in
 //                    print(message)
                 }
             } catch {
@@ -65,5 +65,3 @@ while let update = bot.nextUpdateSync() {
         task.resume()
     }
 }
-
-fatalError("Server stopped due to error: \(bot.lastError)")
